@@ -1,0 +1,16 @@
+﻿#cadastro {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#cadastro-cabecalho {
+    border-bottom: 1px #dddddd solid;
+}
+
+#cadastro-conteudo {
+    margin-top: 20px;
+}
+
+#cabecalho-grid {
+    margin-bottom: 20px;
+}

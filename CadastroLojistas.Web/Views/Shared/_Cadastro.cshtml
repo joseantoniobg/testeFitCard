@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@RenderSection("Styles", true)
+@RenderBody()
+
+<div id="cadastro">
+    <section id="cadastro-cabecalho">
+        <h1>@ViewBag.Title</h1>
+    </section>
+    <section id="cadastro-conteudo">
+        <div id="cabecalho-grid" class="row">
+            <div class="col-md-12">
+                <a id="btn-incluir" class="btn btn-success" role="button"><i class="glyphicon glyphicon-plus"></i> Incluir</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table  id="grid-cadastro" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                @RenderSection("TituloGrid", true)
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @RenderSection("ConteudoGrid", true)
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Hidden("id-cadastro");
+<div id="modal-cadastro" class="form-horizontal invisivel" role="dialog">
+    <div id="msg-mensagem" class="text-danger invisivel"></div>
+    <fieldset>
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @RenderSection("CamposCadastro", true)
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="modal-footer">
+                        <a id="btn-sair" , class="btn btn-danger" role="button" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Sair</a>
+                        <a id="btn-salvar" , class="btn btn-primary" role="button"><i class="glyphicon glyphicon-save"></i> Salvar</a>
+                    </div>
+                    <div id="msg-aviso" class="alert alert-warning invisivel">
+                        Falta Preencher os campos acima.
+                    </div>
+                    <div id="msg-erro" class="alert alert-danger invisivel">
+                        Ops! Tivemos um erro!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+@RenderSection("Scripts", true)

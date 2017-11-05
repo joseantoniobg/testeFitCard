@@ -1,0 +1,79 @@
+﻿@model List <ControleEstoque.Web.Models.LojistaModel>
+
+@{ 
+    Layout = "~/Views/Shared/_Cadastro.cshtml";
+    ViewBag.Title = "Lojistas";
+}
+
+@section Styles{
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+        <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="~/Content/Cadastro/estilo.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+}
+
+@section TituloGrid{
+    <th>CNPJ</th>
+    <th>Fantasia</th>
+    <th>Ação</th>
+}
+
+@section ConteudoGrid {
+        @{
+            var linha = 1;
+            foreach (var item in Model)
+            {
+                if (linha <= ViewBag.QuantMaxLinhasPorPagina)
+                {
+                        <tr data-id="@item.IdCodificado">
+                            <td>@item.CNPJ</td>
+                            <td>@item.Fantasia</td>
+                            <td>
+                                <a class="btn btn-info btn-alterar" role="button"><i class="glyphicon glyphicon-pencil"></i>Alterar</a>
+                                <a class="btn btn-danger btn-excluir" role="button"><i class="glyphicon glyphicon-trash"></i>Excluir</a>
+                            </td>
+                        </tr>
+                        linha++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+       }
+}
+
+@section CamposCadastro{
+        <div class="form-group">
+            @Html.Label("txt-nome", "Nome", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.TextBox("txt-nome", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("cb-ativo", "Ativo", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.CheckBox("cb-ativo")
+            </div>
+        </div>
+}
+
+@section Scripts {
+       <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+       <script type="text/javascript" src="~/Scripts/Cadastro/gridLoad.js"></script>
+       <script src="~/Scripts/Cadastro/Cadastro.js"></script>
+       <script src="~/Scripts/Cadastro/LojistaCadastro.js"></script> 
+       <script type="text/javascript" src="~/Scripts/dataTables.bootstrap.min.js"></script>
+        <script>
+            var tituloPage = '@ViewBag.Title',
+                urlAlterar = '@Url.Action("RecuperarLojista", "Lojista")',
+                urlExcluir = '@Url.Action("ExcluirLojista", "Lojista")',
+                urlSalvar = '@Url.Action("SalvarLojista", "Lojista")',
+                urlGrupoPagina = '@Url.Action("LojistaPagina", "Lojista")',
+                urlMudaQuantItens = '@Url.Action("MudaQuantItensPagina", "Lojista")',
+                urlCadastro = '@Url.Action("Cadastro", "Lojista")',
+                quantItens = '@ViewBag.QuantItens';
+        </script>
+        <script src="~/Scripts/Cadastro/ParametrosLojista.js"></script>
+}

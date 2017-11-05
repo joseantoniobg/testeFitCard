@@ -1,0 +1,163 @@
+﻿@model ControleEstoque.Web.ViewModels.LojistaViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Cadastrar Lojista";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link rel="stylesheet" type="text/css" href="~/Content/forms.css">
+<div class="container container-form">
+    <h3>Cadastro de Lojistas</h3>
+    <form>
+        <div class="row">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="txt-idlojista" value="@Model.Lojista.IdLojista" />
+            <hr>
+            <h4>Dados Gerais</h4>
+            <div id="mensagem-aviso1" class="alert alert-danger invisivel">
+                <strong>Atenção!</strong> Indicates a dangerous or potentially negative action.
+            </div>
+            <div class="col-third col-pad">
+                <div class="input-group input-group-icon">
+                    <input class="cnpj" type="text" id="txt-cnpj" placeholder="CNPJ" value="@Model.Lojista.CNPJ" />
+                    <div class="input-icon"><i class="glyphicon glyphicon-folder-close"></i></div>
+                </div>
+            </div>
+            <div class="col-two-thirds">
+                <div class="input-group input-group-icon">
+                    <input type="text" maxlength="40" id="txt-razao" placeholder="Razão Social" value="@Model.Lojista.Razao" />
+                    <div class="input-icon"><i class="glyphicon glyphicon-flag"></i></div>
+                </div>
+            </div>     
+          </div>
+         <div class="row">
+            <div class="input-group input-group-icon">
+                <input type="text" id="txt-fantasia" placeholder="Nome Fantasia" value="@Model.Lojista.Fantasia" />
+                <div class="input-icon"><i class="glyphicon glyphicon glyphicon-briefcase"></i></div>
+            </div>
+         </div>
+        <div class="row">
+            <hr />
+            <h4>Dados de Contato</h4>
+        </div>
+          <div class="row">
+              <div class="col-half">
+                  <div class="input-group input-group-icon">
+                      <input type="email" class="email" id="txt-email" placeholder="E-mail" value="@Model.Lojista.Email" />
+                      <div class="input-icon"><i class="fa fa-envelope"></i></div>
+                  </div>
+              </div>
+              <div class="col-quarter col-pad">
+                  <div class="input-group input-group-icon">
+                      <input class="telefone" id="txt-telefone" type="text" placeholder="Telefone" value="@Model.Lojista.Telefone" />
+                      <div class="input-icon"><i class="glyphicon glyphicon-phone-alt"></i></div>
+                  </div>
+              </div>
+              <div class="col-quarter">
+                  <div class="input-group input-group-icon">
+                      <input class="telefone" id="txt-celular" type="text" placeholder="Celular" value="@Model.Lojista.Celular" />
+                      <div class="input-icon"><i class="glyphicon glyphicon-phone"></i></div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-half col-pad">
+                  <div class="input-group input-group-icon">
+                      <input type="text" id="txt-endereco" maxlength="60" placeholder="Endereço" value="@Model.Lojista.Endereco" />
+                      <div class="input-icon"><i class="glyphicon glyphicon-home"></i></div>
+                  </div>
+              </div>
+              <div class="col-quarter col-pad">
+                  <div class="input-group input-group-icon">
+                      <input type="text" id="txt-numero" maxlength="10" placeholder="Número" value="@Model.Lojista.Numero" />
+                      <div class="input-icon"><i class="glyphicon glyphicon-th-large"></i></div>
+                  </div>
+              </div>
+              <div class="col-quarter">
+                  <div class="input-group input-group-icon">
+                      <input type="text" id="txt-complemento" maxlength="10" placeholder="Complemento" value="@Model.Lojista.Complemento" />
+                      <div class="input-icon"><i class="glyphicon glyphicon-th-large"></i></div>
+                  </div>
+              </div>
+            </div>
+        <div class="row">
+            <div class="col-half col-pad">
+                <div class="input-group input-group-icon">
+                    <input type="text" id="txt-bairro" maxlength="45" placeholder="Bairro" value="@Model.Lojista.Bairro" />
+                    <div class="input-icon"><i class="glyphicon glyphicon-inbox"></i></div>
+                </div>
+            </div>
+            <div class="col-half">
+                    <div class="input-group">
+                        <select id="cb-cidade">
+                            <option value="0">Cidade</option>
+                            @foreach (var cidade in Model.Cidade)
+                            {
+                                <option value="@cidade.IdCidade" @(Model.Lojista.Cidade.IdCidade == cidade.IdCidade ? "selected" : "")>@(cidade.Cidade + "/" + cidade.Estado)</option>
+                            }
+                        </select>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+            <h4>Detalhes</h4>
+            <div class="col-third col-pad">
+                <div class="input-group">
+                    <input type="radio" name="status" value="1" id="opt-ativo" @(Model.Lojista.Status ? "checked" : "") />
+                    <label for="opt-ativo"><span>Ativo</span></label>
+                    <input type="radio" name="status" value="0" id="opt-inativo" @(!Model.Lojista.Status ? "checked" : "") />
+                    <label for="opt-inativo"><span>Inativo</span></label>
+                </div>
+            </div>
+            <div class="col-third col-pad">
+                <div class="input-group input-group-icon">
+                    <input type="text" class="data" id="txt-data-cadastro" placeholder="Data de Cadastro" value="@(Model.Lojista.DataCadastro != null ? ((DateTime)Model.Lojista.DataCadastro).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture) : "")" />
+                    <div class="input-icon"><i class="glyphicon glyphicon-calendar"></i></div>
+                </div>
+            </div>
+            <div class="col-third">
+                <div class="input-group">
+                    <select id="cb-categoria">
+                        <option value="0">Categoria</option>
+                        @foreach (var cat in Model.Categorias)
+                        {
+                            <option value="@cat.IdCategoria" @(Model.Lojista.Categoria.IdCategoria == cat.IdCategoria ? "selected" : "") >@cat.Categoria</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr />
+            <div id="mensagem-erro" class="alert alert-danger invisivel">
+                Ops! Tivemos um erro!
+            </div>
+            <div class="col-quarter col-pad">
+                <input type="button" id="btn-salvar" class="btn btn-success" value="Salvar" />
+            </div>
+            <div class="col-quarter">
+                <a id="btn-cancelar" href="@Url.Action("Index", "Lojista")" class="btn btn-danger" role="button">Cancelar</a>
+            </div>        
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/Scripts/Cadastro/Cadastro.js"></script>
+    <script type="text/javascript" src="~/Scripts/Cadastro/LojistaCadastro.js"></script>
+    <script type="text/javascript" src="~/Scripts/Cadastro/form.js"></script>   
+    <script>
+          var tituloPage = '@ViewBag.Title',
+                urlAlterar = '@Url.Action("RecuperarLojista", "Lojista")',
+                urlExcluir = '@Url.Action("ExcluirLojista", "Lojista")',
+                urlSalvar = '@Url.Action("SalvarLojista", "Lojista")',
+                urlBase = '@Url.Action("Index", "Lojista")',
+                urlGrupoPagina = '@Url.Action("LojistaPagina", "Lojista")',
+                urlMudaQuantItens = '@Url.Action("MudaQuantItensPagina", "Lojista")',
+                urlCadastro = '@Url.Action("Cadastro", "Lojista")',
+                quantItens = '@ViewBag.QuantItens';
+    </script>
+}
