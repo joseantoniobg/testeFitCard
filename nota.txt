@@ -1,0 +1,9 @@
+Projeto criando utilizando C# e banco de dados SQL Server.
+
+Arquivo fit-lojistas contém script para criação banco / entidades e populagem dos dados.
+
+Projeto funcionando perfeitamente no VS 2017 e 2015, foi utilizado SQL Server 2014.
+
+Usuário padrão: login e senha "jose"
+
+Modificar a string de conexão no Web.config
